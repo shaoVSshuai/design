@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: intstudio
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: SHAOSHUAI
+Implementation-Vendor-Id: com.hzyc.intstudio
+Build-Jdk: 1.8.0_66
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/intstudio
+Created-By: Maven Integration for Eclipse
+
