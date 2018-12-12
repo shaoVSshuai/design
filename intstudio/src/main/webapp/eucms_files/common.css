@@ -102,7 +102,7 @@ body.met-navfixed { padding-top: 60px }
     .met-nav .dropdown-menu.bullet { top: 60px }
     .met-nav .met-nav-login { height: 60px; padding-top: 0; margin-left: 10px }
     .navbar-nav .nav-item .nav-link{
-      line-height:18px;
+     /* line-height:18px;*/
     }
 }
 @media (max-width:991px) {
@@ -1413,7 +1413,7 @@ overflow:hidden; white-space:normal; text-overflow:ellipsis;}
 .service_list_met_11_3 .title-box .tabs li a h3 { font-size: 13px; margin: 0; line-height: 30px; -webkit-transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms; transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms; color: #37474f; color: #37474f; }
 .service_list_met_11_3 .title-box .tabs li.active a { background: #1baadb; background: #1baadb; }
 .service_list_met_11_3 .title-box .tabs li.active a h3 { color: #fff }
-.service_list_met_11_3 .btn-more { padding: 5px 15px; border: 1px solid; color: #1baadb; color: #1baadb; display: block; width: 110px; text-align: center; margin: 30px auto 0 auto; -webkit-transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms; transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms }
+.service_list_met_11_3 .btn-more { padding: 5px 15px; border: 1px solid; color: #1baadb; color: #1baadb; display: block; width: 115px; text-align: center; margin: 30px auto 0 auto; -webkit-transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms; transition: all .6s cubic-bezier(.165, .84, .44, 1) 0ms }
 .service_list_met_11_3 .btn-more .fa { padding-left: 10px }
 .service_list_met_11_3 .btn-more:hover { background: #1baadb; background: #1baadb; padding-left: 15px; color: #fff; border-color: #1baadb; border-color: #1baadb; text-decoration: none }
 .service_list_met_11_3 .btn-more:hover .fa { color: #fff }

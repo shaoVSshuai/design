@@ -37,6 +37,41 @@ font-family:;
 	color:#fff!important;
 	border:1px solid  #1baadb;
 }
+.my-logo {
+	position: relative;
+	width: auto;
+    height: 80px;
+    line-height: 66px;
+    overflow: hidden;
+    font-size: 30px;
+    font-weight: 600;
+    color: #365089;
+    font-family: "";
+    text-align: center;
+}
+@media(max-width:768px) {
+	.my-logo{
+		padding-left:15px;
+	}
+	.carousel-inner>.carousel-item>a>img {
+		height: 230px;
+	}
+	#h-style {
+		height: 620px!important;
+	}
+}
+.my-logo .host {
+	position: absolute;
+    top: 24px;
+    font-size: 12px;
+    left: 15px;
+}
+#header {
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	width: 100%;
+}
 </style>
   <!--[if lte IE 9]>
     <script src="/template/pc/skin/js/lteie9.js"></script>
@@ -64,19 +99,38 @@ font-family:;
     </button>
     你正在使用一个 <strong>过时</strong> 的浏览器。请 <a href=https://browsehappy.com/ target=_blank>升级您的浏览器</a>，以提高您的体验。</div>
 <![endif]-->
+    
+  <script>
+/*   $(document).ready(function(){
+	    $('#exampleCarouselDefault').jqFancyTransitions({ 
+	        effect: 'zipper', // wave, zipper, curtain
+	        width: 850, // width of panel
+	        height: 600, // height of panel
+	        strips: 15, // number of strips
+	        delay: 3000, // delay between images in ms
+	        stripDelay: 20, // delay beetwen strips in ms
+	        titleOpacity: 0.8, // opacity of title
+	        titleSpeed: 2000, // speed of title appereance in ms
+	        position: 'curtain', // top, bottom, alternate, curtain
+	        direction: 'fountainAlternate', // left, right, alternate, random, fountain, fountainAlternate
+	        navigation: true, // prev and next navigation buttons
+	        links: false // show images as links
+	    });
+	})
+ */	</script>
 
   
 <!--header-s--> 
-  <header class="met-head" e-page="header"> 
+  <header class="met-head" e-page="header" id="header"> 
    <nav class="navbar navbar-default box-shadow-none met-nav"> 
     <div class="container"> 
      <div class="row" style=""> 
       <h1 hidden="">INT工作室</h1> 
       <div class="navbar-header pull-xs-left"> 
-        <div class="vertical-align-middle" style="position:relative;width:185px;height:67px;overflow: hidden"> 
-         <img src="../eucms_files/logo.png" alt="INT工作室" style="width:200px;height:200px;position:absolute;    top: -45px; left: -74px;  z-index: 999;"> 
-       	<img src="../eucms_files/logo.png" alt="INT工作室" style="width:200px;height:200px;position:absolute;    top: -45px; left: 8px;  z-index: 999;"> 
-        
+        <div class="vertical-align-middle my-logo"> 
+           INT  Studio
+     
+        <span class="host">www.integer.work</span>
         </div >
       </div>
       <button type="button" class="navbar-toggler hamburger hamburger-close collapsed p-x-5 met-nav-toggler" data-target="#met-nav-collapse" data-toggle="collapse">
@@ -117,6 +171,7 @@ font-family:;
   </header>  
 <!--header-e--> 
 <!--main-s-->
+<div style="height:80px;width:100%;"></div>
   <div class="met-banner carousel slide" id="exampleCarouselDefault" data-ride="carousel" m-id="banner" m-type="banner" e-page="index"> 
    <ol class="carousel-indicators carousel-indicators-fall"> 
             <li data-slide-to="0" data-target="#exampleCarouselDefault" class="active"></li>
@@ -142,7 +197,7 @@ font-family:;
         <div class="container">
         <div class="title-box clearfix">
             <div class="head">
-            <h2 class="title newpro"> 成品展示</h2>
+            <h2 class="title newpro"> 产品展示</h2>
             <p class="desc newpro"></p>
           </div>
             
@@ -170,14 +225,14 @@ font-family:;
               </a> </div>
           </li>
                 </ul>
-        <a href="#chanpinzhanshi/" title=" 产品展示" target="_self" class="btn-more">查看更多<i class="fa fa-angle-right"></i> </a> </div>
+        <a href="#chanpinzhanshi/" title=" 产品展示" target="_self" class="btn-more">查看更多 </a> </div>
       </section>
        
        
        
        <section class="about_list_met_11_3">
       <div class="background">
-        <div style="height: 505px;" class="eyou-edit" e-id="206" e-type="upload">
+        <div style="height: 505px;" class="eyou-edit" e-id="206" e-type="upload" id="h-style">
                    <img style="display: inline;" src="./eucms_files/bf4ba9853f4435e3e1aa2b43f1da1ba8.jpg" class="">
                 </div>
       </div>
@@ -300,6 +355,8 @@ font-family:;
   <script src="./eucms_files/webui-popover.js" type="text/javascript"></script>
   <script src="./eucms_files/common.js" type="text/javascript"></script>
   <script src="./eucms_files/jquery-s2t.js" type="text/javascript"></script>
+  
+<script src="/js/my.js"></script>
   <!-- 应用插件标签 start -->
      <!-- 应用插件标签 end --> 
 <!--footer-e--> 
