@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0024)# -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>易优CMS -  Powered by Eyoucms.com</title>
+  <title>INT Studio - www.integer.work</title>
   <meta name="renderer" content="webkit">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -158,7 +158,7 @@ font-family:;
         %>
          </li> 
 
-                <li class="nav-item dropdown m-l-10"> <a href="#guanyuwomen/" title="关于我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 关于我们 </a> 
+                <li class="nav-item dropdown m-l-10"> <a href="#about_list_met_11_3" title="关于我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 关于我们 </a> 
                  <!--  <div class="dropdown-menu dropdown-menu-right dropdown-menu-bullet"> 
                     <div class="dropdown-item dropdown-submenu"> 
            <a href="#gongsijianjie/" class="dropdown-item ">工作室简介</a> 
@@ -172,7 +172,7 @@ font-family:;
                    </div> -->
                  </li> 
                
-                <li class="nav-item dropdown m-l-10"> <a href="#chanpinzhanshi/" title="产品展示" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 产品展示</a> 
+                <li class="nav-item dropdown m-l-10"> <a href="#cp" title="产品展示" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 产品展示</a> 
                  </li> 
                   <li class="nav-item dropdown m-l-10"> <a href="#chanpinzhanshi/" title="联系我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 联系我们</a> 
                  </li> 
@@ -210,7 +210,7 @@ font-family:;
     
     
     
-           <section class="service_list_met_11_3 text-xs-center">
+           <section id="cp" class="service_list_met_11_3 text-xs-center">
         <div class="container">
         <div class="title-box clearfix">
             <div class="head">
@@ -221,24 +221,24 @@ font-family:;
           </div>
         <ul class="list m-0 clearfix ulstyle">
                       <li class="item col-xs-12 col-md-6 col-lg-4 col-xxl-4 newpro">
-            <div class="content"> <a href="#chanpinzhanshi/37.html" title="Apple iPhone 6s 16GB 玫瑰金色 移动联通" target="_self"> 
-              <img data-original="/eucms_files/product.jpg" alt="Apple iPhone 6s 16GB 玫瑰金色 移动联通" src="./eucms_files/not_adv.jpg" class="" style="display: inline;">
+            <div class="content" style="height:430px"> <a href="http://61.139.150.161:6180/rams_v3" title="中国联通网运调度平台" target="_self"> 
+              <img data-original="/images/中国联通.png" alt="中国联通网运调度平台" src="/images/中国联通.png" class="" style="display: inline;">
               <h4>中国联通网运调度平台</h4>
-              <p>...</p>
+              <p>工作室研发人员曾参与中国联通网上调度平台开发(工单核减,IP地址申请流程等)，使用技术：Spring+Struts+Hibernate Activiti工作流引擎 oracle WebService技术</p>
               </a> </div>
           </li>
                       <li class="item col-xs-12 col-md-6 col-lg-4 col-xxl-4 newpro">
-            <div class="content"> <a href="#chanpinzhanshi/29.html" title=" 小米蓝牙项圈耳机" target="_self"> 
-            <img data-original="/eucms_files/product.jpg" alt=" 小米蓝牙项圈耳机" src="./eucms_files/97714e2c8a418a4282063d9019134a86.jpg" class="" style="display: inline;">
-              <h4> 合众易成企业网站</h4>
-              <p>特性M3平板定制AKG品牌高保真耳机，配合M3平板......</p>
+            <div class="content" style="height:430px"> <a href="http://jf.10086.cn/" title="中国移动积分商城" target="_self"> 
+            <img data-original="/images/中国移动logo.png" alt="中国移动积分商城" src="/images/中国移动logo.png" class="" style="display: inline;">
+              <h4> 中国移动积分商城</h4>
+              <p>工作室研发人员曾参与中国移动积分商城系统(积分抽取,用户数据采集,用户行为数据分析),使用Spring Boot ,Redis ,Mysql ,Socket技术 </p>
               </a> </div>
           </li>
                       <li class="item col-xs-12 col-md-6 col-lg-4 col-xxl-4 newpro">
-            <div class="content"> <a href="#chanpinzhanshi/28.html" title="小米笔记本Air 13.3" target="_self"> 
-            <img data-original="/eucms_files/product.jpg" alt="小米笔记本Air 13.3" src="./eucms_files/7e04484a0e74d6dbbe24ba9cf81b62fd.jpg" class="" style="display: inline;">
-              <h4>仓库管理进销存系统</h4>
-              <p>轻薄全金属机身/256GBSSD/第八代Intel......</p>
+            <div class="content" style="height:430px"> <a href="http://www.cchzyc.com" title="合众易成企业网站" target="_self"> 
+            <img data-original="/images/菊花.png" alt="合众易成企业网站" src="/images/菊花.png" class="" style="display: inline;">
+              <h4>合众易成企业网站</h4>
+              <p>长春合众易成技术咨询公司主营IT咨询服务与IT培训，工作室曾为其制作门户网站(网站首页,试听报名)与企业后台管理(学员信息，公司招聘，兼职招聘，课程首页管理等功能)</p>
               </a> </div>
           </li>
                 </ul>
@@ -247,7 +247,7 @@ font-family:;
        
        
        
-       <section class="about_list_met_11_3">
+       <section class="about_list_met_11_3" id="about_list_met_11_3">
       <div class="background">
         <div style="height: 505px;" class="eyou-edit" e-id="206" e-type="upload" id="h-style">
                    <img style="display: inline;" src="./eucms_files/bf4ba9853f4435e3e1aa2b43f1da1ba8.jpg" class="">
@@ -275,7 +275,7 @@ font-family:;
  
                 	
                 </span>
-                <a href="#gongsijianjie/" title=" 公司简介" class="btn-more" target="_blank">查看更多 </a>
+                <a href="#" title=" 公司简介" class="btn-more" target="_self">查看更多 </a>
                 </p>
               </div>
             </div>
