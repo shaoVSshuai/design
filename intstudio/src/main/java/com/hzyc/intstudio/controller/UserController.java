@@ -5,12 +5,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
 
-@RequestMapping("/system/users")
+@RequestMapping(value="/system/users")
 @Controller
 public class UserController {
 
@@ -30,13 +32,14 @@ public class UserController {
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping("/add")
+	@RequestMapping(value="/add",method= RequestMethod.POST)
+	@ResponseBody
 	public ModelAndView adduser(Users users){
 		ModelAndView modelAndView = new ModelAndView();
 		
 		int rows = userService.add(users);
 		if (rows > 0) {
-			modelAndView.setViewName("../eucms.html");
+			modelAndView.setViewName("eucms.html");
 		} else {
 			modelAndView.setViewName("shibai.jsp");
 		}
@@ -49,12 +52,12 @@ public class UserController {
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping("/selectByTel")
+	@RequestMapping(value="/selectByTel",method= RequestMethod.POST)
 	public ModelAndView selectByTel(Users users) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		boolean flag = userService.selectByTel(users);
-		String jsp = flag ? "../eucms.html" : "shibai.jsp";
+		String jsp = flag ? "eucms.html" : "loginorregist.html";
 		
 		modelAndView.setViewName(jsp);
 		
