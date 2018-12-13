@@ -142,13 +142,13 @@ font-family:;
       <div class="collapse navbar-collapse navbar-collapse-toolbar pull-md-right p-0" id="met-nav-collapse"> 
        <ul class="nav navbar-nav navlist"> 
        <%
-			String username = request.getParameter("username");
+			Users users = (Users)request.getAttribute("users");
 		%>
         <li class="nav-item"> 
         <%
-        	if (!"".equals(username) && username != null) {
+        	if (users != null && !"".equals(users.getUsername())) {
         %>		
-        <a href="loginorregist.jsp" title="用户名" class="nav-link active"><%=username %></a>
+        <a href="loginorregist.jsp" title="用户名" class="nav-link active"><%=users.getUsername() %>/注销</a>
         <%
         	} else {
         %>
