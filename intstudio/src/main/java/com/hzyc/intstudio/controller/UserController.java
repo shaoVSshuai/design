@@ -2,6 +2,8 @@ package com.hzyc.intstudio.controller;
 
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
 
-@RequestMapping(value="/system/users")
 @Controller
 public class UserController {
 
@@ -32,8 +33,7 @@ public class UserController {
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping(value="/add",method= RequestMethod.POST)
-	@ResponseBody
+	@RequestMapping(value="/add")
 	public ModelAndView adduser(Users users){
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -52,14 +52,18 @@ public class UserController {
 	 * @param users
 	 * @return
 	 */
-	@RequestMapping(value="/selectByTel",method= RequestMethod.POST)
-	public ModelAndView selectByTel(Users users) {
+	@RequestMapping(value="/selectByTel")
+	public ModelAndView selectByTel(Users users,HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		boolean flag = userService.selectByTel(users);
-		String jsp = flag ? "eucms.html" : "loginorregist.html";
+		boolean flag = userService.selectByTel(users,request);
+		String jsp = flag ? "eucms.jsp" : "loginorregist.jsp";
+		
+		HttpSession session = request.getSession();
+		users = (Users)session.getAttribute("users");
 		
 		modelAndView.setViewName(jsp);
+		modelAndView.addObject("username", users.getUsername());
 		
 		return modelAndView;
 	}

@@ -1,5 +1,7 @@
 package com.hzyc.intstudio.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hzyc.intstudio.entity.Users;
 
 public interface IUserService {
@@ -18,5 +20,5 @@ public interface IUserService {
 	 * @param users
 	 * @return flag
 	 */
-	public boolean selectByTel(Users users);
+	public boolean selectByTel(Users users,HttpServletRequest request);
 }

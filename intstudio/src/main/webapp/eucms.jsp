@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- saved from url=(0024)# -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -139,7 +141,22 @@ font-family:;
       </button> 
       <div class="collapse navbar-collapse navbar-collapse-toolbar pull-md-right p-0" id="met-nav-collapse"> 
        <ul class="nav navbar-nav navlist"> 
-        <li class="nav-item"> <a href="loginorregist.html" title="登录/注册" class="nav-link active">登录/注册</a> </li> 
+       <%
+			String username = request.getParameter("username");
+		%>
+        <li class="nav-item"> 
+        <%
+        	if (!"".equals(username) && username != null) {
+        %>		
+        <a href="loginorregist.jsp" title="用户名" class="nav-link active"><%=username %></a>
+        <%
+        	} else {
+        %>
+        <a href="loginorregist.jsp" title="登录/注册" class="nav-link active">登录/注册</a>
+        <%		
+        	}
+        %>
+         </li> 
 
                 <li class="nav-item dropdown m-l-10"> <a href="#guanyuwomen/" title="关于我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 关于我们 </a> 
                  <!--  <div class="dropdown-menu dropdown-menu-right dropdown-menu-bullet"> 

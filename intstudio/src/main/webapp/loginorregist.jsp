@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -46,7 +48,7 @@
 
 		<div class="login w3layouts agileits form-group" >
 			<h2>登 录</h2>
-			<form action="/system/users/selectByTel" method="post" id="form"  id="form" onsubmit="return valid()">
+			<form action="/selectByTel" method="post" id="form"  id="form" onsubmit="return valid()">
 				<input type="text" class="form-control" id="username" name="tel" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" placeholder="用户名/手机号"  >
 				<input type="password"  class="form-control" id="password" name="password" placeholder="密码"  >
 			
@@ -82,7 +84,7 @@
 		</div><div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
 		<div class="register w3layouts agileits">
 			<h2>注 册</h2>
-			<form action="/system/users/add" method="post" onsubmit="return register()">
+			<form action="/add" method="post" onsubmit="return register()">
 				<input type="text" name="username" id="username1" placeholder="用户名" required="" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" >
 				<input type="password" name="password" id="pwd1" placeholder="密码" required="">
 				<input type="text" name="tel" id="tel1" placeholder="手机号码" required="" onkeyup="this.value = this.value.replace(/[^0-9-]+/,'')">
