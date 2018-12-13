@@ -125,4 +125,11 @@
       wechat = #{wechat,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <!-- 登录 -->
+  <select id="selectByTel" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where tel = #{tel,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -25,15 +25,39 @@ public class UserController {
 		res.setData(rows);
 		return res;
 	}*/
+	/**
+	 * 注册，id时间戳
+	 * @param users
+	 * @return
+	 */
 	@RequestMapping("/add")
 	public ModelAndView adduser(Users users){
 		ModelAndView modelAndView = new ModelAndView();
+		
 		int rows = userService.add(users);
 		if (rows > 0) {
 			modelAndView.setViewName("../eucms.html");
 		} else {
 			modelAndView.setViewName("shibai.jsp");
 		}
+		
+		return modelAndView;
+	}
+	
+	/**
+	 * 登录，通过tel查询
+	 * @param users
+	 * @return
+	 */
+	@RequestMapping("/selectByTel")
+	public ModelAndView selectByTel(Users users) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		boolean flag = userService.selectByTel(users);
+		String jsp = flag ? "../eucms.html" : "shibai.jsp";
+		
+		modelAndView.setViewName(jsp);
+		
 		return modelAndView;
 	}
 }
