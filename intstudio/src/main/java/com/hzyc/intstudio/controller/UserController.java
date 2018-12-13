@@ -7,8 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hzyc.intstudio.entity.Users;
@@ -59,11 +57,12 @@ public class UserController {
 		boolean flag = userService.selectByTel(users,request);
 		String jsp = flag ? "eucms.jsp" : "loginorregist.jsp";
 		
-		HttpSession session = request.getSession();
-		users = (Users)session.getAttribute("users");
-		
+		if (flag) {
+			HttpSession session = request.getSession();
+			users = (Users)session.getAttribute("users");
+			modelAndView.addObject("users", users);
+		}
 		modelAndView.setViewName(jsp);
-		modelAndView.addObject("username", users.getUsername());
 		
 		return modelAndView;
 	}

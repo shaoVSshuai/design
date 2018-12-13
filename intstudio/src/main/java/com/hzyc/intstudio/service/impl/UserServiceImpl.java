@@ -55,7 +55,6 @@ public class UserServiceImpl implements IUserService {
 		}else {
 			flag = false;
 		}
-		
 		if(flag) {
 			HttpSession session = request.getSession();
 			session.setAttribute("users", selUsers);
