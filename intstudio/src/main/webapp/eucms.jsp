@@ -1,3 +1,4 @@
+<%@page import="com.hzyc.intstudio.entity.Users"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -174,7 +175,7 @@ font-family:;
                
                 <li class="nav-item dropdown m-l-10"> <a href="#cp" title="产品展示" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 产品展示</a> 
                  </li> 
-                  <li class="nav-item dropdown m-l-10"> <a href="#chanpinzhanshi/" title="联系我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 联系我们</a> 
+                  <li class="nav-item dropdown m-l-10"> <a href="/applicationCheck" title="联系我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 联系我们</a> 
                  </li> 
                  <li class="nav-item dropdown m-l-10"> <a href="#chanpinzhanshi/" title="加入我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 加入我们</a> 
                  </li> 

@@ -49,8 +49,8 @@ public class ApplicationController {
 	public ModelAndView applicationCheck(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		String jsp = request.getSession(false) == null ? "loginorregist.jsp" : "申请页";
-		String flag = request.getSession(false) == null ? "2" : "";
+		String jsp = (request.getSession(false) == null || request.getSession().getAttribute("users") == null) ? "loginorregist.jsp" : "callMe.jsp";
+		String flag = (request.getSession(false) == null || request.getSession().getAttribute("users") == null) ? "2" : "";
 		modelAndView.addObject("flag", flag);
 		modelAndView.setViewName(jsp);
 		
