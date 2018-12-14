@@ -45,7 +45,7 @@ public class ApplicationController {
 	 * @author BIN
 	 * @param application
 	 */
-	@RequestMapping("/application")
+	@RequestMapping("/applicationCheck")
 	public ModelAndView applicationCheck(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		

@@ -103,4 +103,21 @@ public class UserController {
 			writer.close();
 		}
 	}
+	
+	/**
+	 * 注销
+	 * @author BIN
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/logOut")
+	public ModelAndView logOut(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		request.getSession().removeAttribute("users");
+		request.getSession().invalidate();
+		modelAndView.setViewName("loginorregist.jsp");
+		
+		return modelAndView;
+	}
 }
