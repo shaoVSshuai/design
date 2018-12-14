@@ -1,14 +1,18 @@
 package com.hzyc.intstudio.controller;
 
 
+import java.io.PrintWriter;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hzyc.intstudio.entity.Application;
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
 
@@ -28,29 +32,28 @@ public class UserController {
 	}*/
 	/**
 	 * 注册，id时间戳
+	 * @author BIN
 	 * @param users
-	 * @return
 	 */
-	@RequestMapping(value="/add")
-	public ModelAndView adduser(Users users){
+	@RequestMapping("/add")
+	public ModelAndView adduser(Users users,HttpServletRequest request){
 		ModelAndView modelAndView = new ModelAndView();
 		
 		int rows = userService.add(users);
-		if (rows > 0) {
-			modelAndView.setViewName("eucms.html");
-		} else {
-			modelAndView.setViewName("shibai.jsp");
-		}
+		String flag = rows > 0 ? "1" : "0";
+		
+		modelAndView.setViewName("loginorregist.jsp");
+		modelAndView.addObject("flag", flag);
 		
 		return modelAndView;
 	}
 	
 	/**
 	 * 登录，通过tel查询
+	 * @author BIN
 	 * @param users
-	 * @return
 	 */
-	@RequestMapping(value="/selectByTel")
+	@RequestMapping("/selectByTel")
 	public ModelAndView selectByTel(Users users,HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -58,12 +61,46 @@ public class UserController {
 		String jsp = flag ? "eucms.jsp" : "loginorregist.jsp";
 		
 		if (flag) {
-			HttpSession session = request.getSession();
-			users = (Users)session.getAttribute("users");
-			modelAndView.addObject("users", users);
+			try {
+				HttpSession session = request.getSession();
+				if (session.getAttribute("users") != null && session.getAttribute("users") != "") {
+					users = (Users)session.getAttribute("users");
+				}
+				modelAndView.addObject("users", users);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 		modelAndView.setViewName(jsp);
 		
 		return modelAndView;
+	}
+	
+	/**
+	 * 注册时手机号校验
+	 * @author BIN
+	 * @param users
+	 * @return flag
+	 */
+	@RequestMapping("/telCheck")
+	public void telCheck(HttpServletResponse response,HttpServletRequest request) {
+		PrintWriter writer = null;
+		String tel = request.getParameter("tel");
+		try {
+			writer = response.getWriter();
+			
+			boolean telFlag = userService.selectTel(tel);
+			String flag = telFlag ? "1" : "0" ;
+			String result = "{\"flag\":\"" + flag + "\"}";
+			writer.println(result);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			writer.flush();
+			writer.close();
+		}
 	}
 }

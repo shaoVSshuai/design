@@ -15,10 +15,18 @@ public interface IUserService {
 	public int add(Users users);
 	
 	/**
-	 * 通过tel查询返回boolean
+	 * 通过tel查询登录返回boolean
 	 * @author BIN
 	 * @param users
 	 * @return flag
 	 */
 	public boolean selectByTel(Users users,HttpServletRequest request);
+	
+	/**
+	 * 通过tel查询返回boolean
+	 * @author BIN
+	 * @param tel
+	 * @return flag
+	 */
+	public boolean selectTel(String tel);
 }

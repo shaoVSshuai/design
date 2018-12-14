@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	/**
-	 * 通过tel查询返回boolean
+	 * 通过tel查询登录返回boolean
 	 * @author BIN
 	 * @param users
 	 * @return flag
@@ -59,6 +59,19 @@ public class UserServiceImpl implements IUserService {
 			HttpSession session = request.getSession();
 			session.setAttribute("users", selUsers);
 		}
+		return flag;
+	}
+	
+	/**
+	 * 通过tel查询返回boolean
+	 * @author BIN
+	 * @param tel
+	 * @return flag
+	 */
+	public boolean selectTel(String tel) {
+		Users users = userMapper.selectByTel(tel);
+		boolean flag = users != null ? false : true;
+		
 		return flag;
 	}
 }
