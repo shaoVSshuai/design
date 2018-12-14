@@ -42,7 +42,7 @@ public class UserController {
 		int rows = userService.add(users);
 		String flag = rows > 0 ? "1" : "0";
 		
-		modelAndView.setViewName("loginorregist.jsp");
+		modelAndView.setViewName("redirect:loginorregist.jsp");
 		modelAndView.addObject("flag", flag);
 		
 		return modelAndView;
@@ -58,7 +58,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		boolean flag = userService.selectByTel(users,request);
-		String jsp = flag ? "eucms.jsp" : "loginorregist.jsp";
+		String jsp = flag ? "redirect:eucms.jsp" : "redirect:loginorregist.jsp";
 		
 		if (flag) {
 			try {
@@ -66,7 +66,7 @@ public class UserController {
 				if (session.getAttribute("users") != null && session.getAttribute("users") != "") {
 					users = (Users)session.getAttribute("users");
 				}
-				modelAndView.addObject("users", users);
+				modelAndView.addObject("username", users.getUsername());
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -116,7 +116,7 @@ public class UserController {
 		
 		request.getSession().removeAttribute("users");
 		request.getSession().invalidate();
-		modelAndView.setViewName("loginorregist.jsp");
+		modelAndView.setViewName("redirect:loginorregist.jsp");
 		
 		return modelAndView;
 	}

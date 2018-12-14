@@ -28,12 +28,18 @@ public class ApplicationController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (request.getSession(false) == null) {
 			modelAndView.addObject("flag", "2");
-			modelAndView.setViewName("loginorregist.jsp");
+			modelAndView.setViewName("redirect:loginorregist.jsp");
 		} else {
 			Users users = (Users)request.getSession().getAttribute("users");
 			application.setUsersid(users.getId());
 			boolean flag = appService.saveApplication(application);
-			String jsp = flag ? "eucms.jsp" : "申请页";
+			String jsp = "redirect:eucms.jsp";
+			if (!flag) {
+				modelAndView.addObject("users", users);
+				jsp = "callMe.jsp";
+			} else {
+				modelAndView.addObject("username", users.getUsername());
+			}
 			modelAndView.setViewName(jsp);
 		}
 		
@@ -48,10 +54,16 @@ public class ApplicationController {
 	@RequestMapping("/applicationCheck")
 	public ModelAndView applicationCheck(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		String jsp = "callMe.jsp";
 		
-		String jsp = (request.getSession(false) == null || request.getSession().getAttribute("users") == null) ? "loginorregist.jsp" : "callMe.jsp";
-		String flag = (request.getSession(false) == null || request.getSession().getAttribute("users") == null) ? "2" : "";
-		modelAndView.addObject("flag", flag);
+		if (request.getSession(false) == null || request.getSession().getAttribute("users") == null) {
+			jsp = "redirect:loginorregist.jsp";
+			String flag = "2";
+			modelAndView.addObject("flag", flag);
+		} else {
+			Users users = (Users)request.getSession().getAttribute("users");
+			modelAndView.addObject("users", users);
+		}
 		modelAndView.setViewName(jsp);
 		
 		return modelAndView;
