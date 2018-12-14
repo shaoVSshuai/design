@@ -35,6 +35,38 @@
 		 }
 		 
 	 }
+	 
+	 
+	 function validTel(input){
+		 var tel = input.value;
+		 if(tel.trim() == ''){
+			 return ;
+		 }
+		//创建异步对象  
+		 var xhr = new XMLHttpRequest();
+		 //设置请求的类型及url
+		   xhr.open('post', '/telCheck' );
+		 //post请求一定要添加请求头才行不然会报错
+		 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		
+		 //发送请求
+		 xhr.send('tel='+tel);
+		 xhr.onreadystatechange = function () {
+		     // 这步为判断服务器是否正确响应
+		   if (xhr.readyState == 4 && xhr.status == 200) {
+		     var str = (xhr.responseText);
+		     //alert(1);
+		     var obj = eval('(' + str + ')'); 
+		     if(obj.flag == '1'){
+		    	 return ;
+		     }else{
+		    	 alert("手机号已存在！");
+		    	 input.value = "";
+		    	 return;
+		     }
+		   } 
+		 };
+	 }
 	</script>
 </head>
 <!-- //Head -->
@@ -87,7 +119,7 @@
 			<form action="/add" method="post" onsubmit="return register()">
 				<input type="text" name="username" id="username1" placeholder="用户名" required="" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" >
 				<input type="password" name="password" id="pwd1" placeholder="密码" required="">
-				<input type="text" name="tel" id="tel1" placeholder="手机号码" required="" onkeyup="this.value = this.value.replace(/[^0-9-]+/,'')">
+				<input type="text" name="tel" id="tel1" onblur="validTel(this)" placeholder="手机号码" required="" onkeyup="this.value = this.value.replace(/[^0-9-]+/,'')">
 				<input type="text" name="wechat" id="wx1" placeholder="微信号" required="">
 			 
 			<div class="send-button w3layouts agileits">
