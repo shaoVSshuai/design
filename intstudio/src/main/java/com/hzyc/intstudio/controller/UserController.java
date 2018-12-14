@@ -116,6 +116,7 @@ public class UserController {
 		
 		request.getSession().removeAttribute("users");
 		request.getSession().invalidate();
+		
 		modelAndView.setViewName("redirect:loginorregist.jsp");
 		
 		return modelAndView;
