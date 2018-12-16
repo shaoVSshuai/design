@@ -6,7 +6,7 @@
 <!-- Head -->
 <head>
 
-	<title>登录表单</title>
+	<title>登录/注册</title>
 	<!-- Meta-Tags -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -74,15 +74,15 @@
 <!-- Body -->
 <body>
 
-	<h1>登录表单</h1>
+	<h1>登录/注册</h1>
 
 	<div class="container w3layouts agileits">
 
 		<div class="login w3layouts agileits form-group" >
 			<h2>登 录</h2>
 			<form action="/selectByTel" method="post" id="form"  id="form" onsubmit="return valid()">
-				<input type="text" class="form-control" id="username" name="tel" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" placeholder="用户名/手机号"  >
-				<input type="password"  class="form-control" id="password" name="password" placeholder="密码"  >
+				<input type="text" required="" class="form-control" id="username" name="tel" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" placeholder="用户名/手机号"  >
+				<input type="password"  required="" class="form-control" id="password" name="password" placeholder="密码"  >
 			
 			<!-- <ul class="tick w3layouts agileits">
 				<li>
@@ -100,20 +100,20 @@
 			<div class="social-icons w3layouts agileits">
 				<p>- 其他方式登录 -</p>
 				<ul>
-					<li class="qq"><a href="#">
+					<li class="qq"><a href="javascript:alert('暂未开放此登录方式,敬请期待');">
 					<span class="icons w3layouts agileits"></span>
 					<span class="text w3layouts agileits">QQ</span></a></li>
-					<li class="weixin w3ls"><a href="#">
+					<li class="weixin w3ls"><a href="javascript:alert('暂未开放此登录方式,敬请期待');">
 					<span class="icons w3layouts"></span>
 					<span class="text w3layouts agileits">微信</span></a></li>
-					<li class="weibo aits"><a href="#">
+					<li class="weibo aits"><a href="javascript:alert('暂未开放此登录方式,敬请期待');">
 					<span class="icons agileits"></span>
 					<span class="text w3layouts agileits">微博</span></a></li>
 					<div class="clear"> </div>
 				</ul>
 			</div>
 			<div class="clear"></div>
-		</div><div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
+		</div><div class="copyrights">Collect from <a href="#" ></a></div>
 		<div class="register w3layouts agileits">
 			<h2>注 册</h2>
 			<form action="/add" method="post" onsubmit="return register()">
@@ -136,8 +136,9 @@
 	</div>
 
 	<div class="footer w3layouts agileits">
-		<p>Copyright &copy; More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-	</div>
+		<p> Copyright © 2018 INT Studio 版权所有     </p>
+		</p>
+		</div>
 
 </body>
 <!-- //Body -->

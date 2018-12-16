@@ -1,3 +1,4 @@
+<%@page import="com.hzyc.intstudio.entity.Users"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,7 +7,12 @@
 <!-- Head -->
 <head>
 
-	<title>登录表单</title>
+<%
+
+	Users users =  (Users)request.getSession().getAttribute("users");
+	
+%>
+	<title>联系我们</title>
 	<!-- Meta-Tags -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -36,36 +42,70 @@
 		 
 	 }
 	</script>
+	<style>
+		.container {
+			width: 31%;
+			box-sizing: border-box;
+		}
+		.register {
+		    width: 90%;
+		}
+		@media(max-width:768px) {
+			.container {
+				width: 95%;
+			}
+			.register {
+			    width: 100%;
+			}
+		}
+	</style>
 </head>
 <!-- //Head -->
-
+<script>
+	function submits(){
+		
+			var type = document.getElementById("type").value;
+			if(type != ''){
+				//ajax提交需求
+				
+				return true;
+			}else{
+				alert("请明确选择您的需求类型!");
+				return false;
+			}
+	}
+	
+	
+</script>
 <!-- Body -->
 <body>
 
 	<h1>联系我们	</h1>
 
-	<div class="container w3layouts agileits" style="width:31%!important">
+	<div class="container w3layouts agileits">
 	<div class="copyrights"></div>
-		<div class="register w3layouts agileits">
+		<div class="register w3layouts agileits" style="overflow:hidden;">
 			<h2>完善信息</h2>
-			<form action="/application" method="post" onsubmit="return register()">
-				<input style="width:174%!important" type="text" name="username" id="username1" placeholder="用户名" required="" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" >
-				<input style="width:174%!important" type="text" name="tel" id="tel1" placeholder="手机号码" required="" onkeyup="this.value = this.value.replace(/[^0-9-]+/,'')">
-				<input style="width:174%!important" type="text" name="wechat" id="wx1" placeholder="微信号" required="">
-				<input style="width:174%!important" type="text" name="wechat" id="wx1" placeholder="需求名称" required="">
-				<select style="margin-bottom:20px;width:185%!important;padding-left:5px; height: 40px;color:#fff;font-size:15px;background-color:#000;;border:1px solid #fff" >
+			<form action="/application" method="post" onsubmit="return submits()">
+				<input type="hidden" value="<%=users.getId() %>" name="userid" />
+				<input style="width:174%!important" value="<%=users.getUsername()%>" readonly="readonly" type="text" name="username" id="username1" placeholder="用户名" required="" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5a-zA-Z0-9\w]/g,'')" >
+				<input style="width:174%!important" value="<%=users.getTel()%>" readonly="readonly" type="text" name="tel" id="tel1" placeholder="手机号码" required="" onkeyup="this.value = this.value.replace(/[^0-9-]+/,'')">
+				<input style="width:174%!important" value="<%=users.getWechat()%>" readonly="readonly" type="text" name="wechat" id="wx1" placeholder="微信号" required="">
+				<input style="width:174%!important" type="text" name="demandname" id="wx1" placeholder="需求名称" required="">
+				<select name="type" id="type" style="margin-bottom:20px;width: 100%;padding-left:5px; height: 40px;color:#fff;font-size:15px;background-color:#000;;border:1px solid #fff" >
 					
 					<option value="">需求类型</option>
-					<option>网站</option>
-					<option>小程序</option>
-					<option>其他</option>
+					<option value="网站">网站</option>
+					<option value="小程序" >小程序</option>
+					<option value="安卓APP" >安卓APP</option>
+					<option value="桌面应用" >桌面应用</option>
+					<option value="其他">其他</option>
 				</select>
-				<input style="width:174%!important" type="text" name="wechat" id="wx1" placeholder="请简单的描述您的需求" required="">
+				<input style="width:174%!important" type="text" name="detail" id="wx1" placeholder="请简单的描述您的需求" required="">
 			 
 			<div class="send-button w3layouts agileits">
 				 
 					<input type="submit" value="提交">
-					我们将会联系您的微信 
 				 
 			</div>
 			</form>
@@ -77,9 +117,11 @@
 	</div>
 
 	<div class="footer w3layouts agileits">
-		<p>Copyright &copy; More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-	</div>
+		<p> Copyright © 2018 INT Studio 版权所有     </p></div>
+	<script>
+	alert("无需您出手,只需简单填写项目需求,我们将会联系您的微信");
 
+	</script>
 </body>
 <!-- //Body -->
 

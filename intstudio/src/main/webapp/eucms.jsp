@@ -62,6 +62,10 @@ font-family:;
 	#h-style {
 		height: 620px!important;
 	}
+	#pinglun{
+		width:93%!important;
+		margin:10px 10px;
+	}
 }
 .my-logo .host {
 	position: absolute;
@@ -74,6 +78,23 @@ font-family:;
 	top: 0;
 	z-index: 999;
 	width: 100%;
+}
+#pinglun{
+	display: inline-block;
+	width:80%;
+	height:32px;
+	margin-left:20px;
+	border:1px solid #1baadb;
+}
+#wrapper{
+display:none;
+	width:100%;
+	height:100%;
+	background-color: rgb(0,0,0,0.8) ;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:9999;
 }
 </style>
   <!--[if lte IE 9]>
@@ -121,8 +142,97 @@ font-family:;
 	    });
 	})
  */	</script>
+<script>
 
+	function pinglun(){
+		
+		
+		var isLogin = document.getElementById("isLogin").value;
+		var btn = document.getElementById("pinglunbutton");
+		var content = document.getElementById("pinglun").value;
+		
+		if(isLogin == '1'){
+			//弹出评论页面
+			document.getElementById("pinglun").style.display = "inline-block";
+			btn.innerHTML = "提交";
+		}else{
+			//请先登录
+			alert("请先登录");
+			window.location.href = "loginorregist.jsp";
+		}
+		
+		
+		var username = document.getElementById("username").value;
+		if(btn.innerText == '提交'){
+			
+			if(content.trim() == ''){
+				alert('请输入评论!');
+				return ;
+			}
+			
+			var d = new Date();
+			var vYear = d.getFullYear();
+			var vMon = d.getMonth() + 1
+			var vDay = d.getDate();
+			var h = d.getHours(); 
+			var m = d.getMinutes(); 
+			var se = d.getSeconds(); 
+			var s=vYear+(vMon<10 ? "0" + vMon : vMon)+(vDay<10 ? "0"+ vDay : vDay)+(h<10 ? "0"+ h : h)+(m<10 ? "0" + m : m)+(se<10 ? "0" +se : se);
+			//alert('3‘+s);
+			
+		var newLi = '<li class="list-group-item news-li clearfix" style=""> '+
+            '<span style="display:block;width:100%;margin-bottom:10px;">' + s + ' </span>'+
+            '<span> 用户 '+username+' : </span>'+
+            
+             '<a href="#xinwendongtai/38.html" title="" target="_self"> '+
+             	content+
+              '</a> '+
+              '</li>';
+			//ajax录入评论
+			$(newLi).insertAfter($("#pingluntop"));
+			document.getElementById("pinglun").value = '';
+			return ;
+		}
+		
+	}
+	
+	
+	
+	function joinus(){
+		
+		alert("无论您是上班族或是学生，只要您会制作网站,小程序或安卓app都可以加入我们工作群,无需缴纳任何费用,经过审核后我们将会分配任务给您");
+		var a = document.getElementById("joinus");
+		var w = document.getElementById("wrapper");
+		w.style.display = "block";
+		a.style.position = "fixed";
+		a.style.top = "50%";
+		a.style.left = "50%";
+		var width = 300;
+		var height = 400;
+		a.style.width = width +"px";
+		a.style.height = height + "px";
+		a.style.marginLeft = "-" + parseInt(width) / 2 +"px";
+		a.style.marginTop = "-" + parseInt(height) / 2 +"px";
+		a.style.zIndex = "999";
+	}
+	
+	function close1(){
+		//关闭
+		var w = document.getElementById("wrapper");
+		w.style.display = "none";
+	}
+
+</script>
+  </head>
+  <body>
+  <div id="wrapper">
+  	   <div class="met-index-news"  id="joinus">
+  	   			<div style="position:absolute;top:10px;right:15px;font-weight:600;font-size:18px;cursor:pointer;" onclick="close1()" >X</div>
+    
+			<img src="images/joinus.jpg" style="width:100%;height:100%">
+      </div>
   
+  </div>
 <!--header-s--> 
   <header class="met-head" e-page="header" id="header"> 
    <nav class="navbar navbar-default box-shadow-none met-nav"> 
@@ -143,23 +253,27 @@ font-family:;
       <div class="collapse navbar-collapse navbar-collapse-toolbar pull-md-right p-0" id="met-nav-collapse"> 
        <ul class="nav navbar-nav navlist"> 
        <%
-			Users users = (Users)request.getAttribute("users");
+			Users users =  (Users)request.getSession().getAttribute("users");
 		%>
         <li class="nav-item"> 
         <%
-        	if (users != null && !"".equals(users.getUsername())) {
+        	if (users != null ) {
         %>		
-        <a href="loginorregist.jsp" title="用户名" class="nav-link active"><%=users.getUsername() %>/注销</a>
+        <a href="/logOut" title="用户名" class="nav-link active"><%=users.getUsername()%>/注销</a>
+        <input type="hidden" value="<%=users.getUsername() %>" id="username"/>
+        <input type="hidden" value="1" id="isLogin"/>
         <%
         	} else {
         %>
+         <input type="hidden" value="0" id="isLogin"/>
+       
         <a href="loginorregist.jsp" title="登录/注册" class="nav-link active">登录/注册</a>
         <%		
         	}
         %>
          </li> 
 
-                <li class="nav-item dropdown m-l-10"> <a href="#about_list_met_11_3" title="关于我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 关于我们 </a> 
+                <li class="nav-item dropdown m-l-10"> <a href="#about_list_met_11_3" title="关于我们" class="nav-link dropdown-toggle " data-toggle="" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 关于我们 </a> 
                  <!--  <div class="dropdown-menu dropdown-menu-right dropdown-menu-bullet"> 
                     <div class="dropdown-item dropdown-submenu"> 
            <a href="#gongsijianjie/" class="dropdown-item ">工作室简介</a> 
@@ -173,14 +287,14 @@ font-family:;
                    </div> -->
                  </li> 
                
-                <li class="nav-item dropdown m-l-10"> <a href="#cp" title="产品展示" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 产品展示</a> 
+                <li class="nav-item dropdown m-l-10"> <a href="#cp" title="产品展示" class="nav-link dropdown-toggle " data-toggle="" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 产品展示</a> 
                  </li> 
-                  <li class="nav-item dropdown m-l-10"> <a href="/applicationCheck" title="联系我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 联系我们</a> 
+                  <li class="nav-item dropdown m-l-10"> <a href="/applicationCheck" title="联系我们" class="nav-link dropdown-toggle " data-toggle="" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 联系我们</a> 
                  </li> 
-                 <li class="nav-item dropdown m-l-10"> <a href="#chanpinzhanshi/" title="加入我们" class="nav-link dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 加入我们</a> 
+                 <li class="nav-item dropdown m-l-10"> <a href="#" onclick="joinus()" title="加入我们" class="nav-link dropdown-toggle " data-toggle="" data-hover="dropdown" aria-haspopup="true" aria-expanded="false"> 加入我们</a> 
                  </li> 
               
-                <li class="nav-item"> <a href="#login.php" target="_blank" title="后台入口" class="nav-link "><span style="color:red">后台入口</span></a> </li> 
+                <li class="nav-item"> <a href="gg.jsp" target="_blank" title="后台入口" class="nav-link "><span style="color:red">后台入口</span></a> </li> 
        </ul> 
       </div> 
      </div> 
@@ -276,7 +390,7 @@ font-family:;
  
                 	
                 </span>
-                <a href="#" title=" 公司简介" class="btn-more" target="_self">查看更多 </a>
+                <a href="javascript:joinus()" title="加入我们" class="btn-more" target="_self">加入我们 </a>
                 </p>
               </div>
             </div>
@@ -285,16 +399,38 @@ font-family:;
       </div>
     </section>
     
+    
+    
     <div class="met-index-news">
         <div class="container">
         <div class="col-xs-12 eyou-edit" e-id="203" e-type="arclist">
             <ul class="list-group">
-                         <li class="list-group-item active clearfix">
+                         <li id="pingluntop" class="list-group-item active clearfix">
                 <h4 class="pull-xs-left m-y-0">客户评价</h4>
-                 
-                <a href="#xingyezixun/" class="pull-xs-right btn-more myhh" >           评论
+                 <input type="text" placeholder="请输入您的评论,300字以内" value="" style="display:none" id="pinglun" />
+                <a href="javascript:pinglun()" id="pinglunbutton" class="pull-xs-right btn-more myhh" >           评论
                 </a> </li>
-                        <li class="list-group-item news-li clearfix"> <span>2018-05-29</span> <a href="#xinwendongtai/38.html" title="商梦网校：单页SEO站群技术，用10个网站优化排名！" target="_self"> 商梦网校：单页SEO站群技术，用10个网站优化排名！ </a> </li>
+                
+                		
+                
+                        <li class="list-group-item news-li clearfix" style=""> 
+                        <span style="display:block;width:100%;margin-bottom:10px;">2018-05-29 10:30:21 </span>
+                        <span> 用户 WhoElse : </span>
+                        
+                         <a href="#xinwendongtai/38.html" title="" target="_self"> 
+                         	非常感谢，一直想做一个网站卖自己的产品，终于实现了，推广的很快，技术人员很棒!
+                          </a> 
+                          
+                          
+                          
+                          </li>
+                          
+                          <li class="list-group-item news-li clearfix" style="padding-left:30px;">
+                          	<span>INT Studio 回复 :</span>
+                          	<a href="#xinwendongtai/38.html" title="" target="_self"> 
+								谢谢您 ，您开心就好！！！
+                          </a>
+                          </li>
                         <li class="list-group-item news-li clearfix"> <span>2018-05-18</span> <a href="#xinwendongtai/21.html" title="网站设计与SEO的关系，高手是从这4个维度分析的！" target="_self"> 网站设计与SEO的关系，高手是从这4个维度分析的！ </a> </li>
                         <li class="list-group-item news-li clearfix"> <span>2018-05-18</span> <a href="#xinwendongtai/20.html" title="CMS是如何应运而生的？" target="_self"> CMS是如何应运而生的？ </a> </li>
                         <li class="list-group-item news-li clearfix"> <span>2018-05-17</span> <a href="#xinwendongtai/4.html" title="seo是什么？" target="_self"> seo是什么？ </a> </li>
@@ -303,6 +439,12 @@ font-family:;
          
       </div>
       </div>
+      
+      
+      
+      
+       
+      
     
   </main>
 <!--main-e--> 
