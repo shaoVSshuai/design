@@ -2,6 +2,7 @@ package com.hzyc.intstudio.controller;
 
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hzyc.intstudio.entity.Application;
+import com.hzyc.intstudio.entity.Comments;
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
 
@@ -30,6 +31,39 @@ public class UserController {
 		res.setData(rows);
 		return res;
 	}*/
+	@RequestMapping("/saveComments")
+	public void saveComments(HttpServletResponse response,HttpServletRequest request) {
+		PrintWriter writer = null;
+		try {
+			String content = request.getParameter("content");
+			boolean flag = userService.saveComments(content,request);
+			String result = "0";
+			if (flag) {
+				result = "1";
+			}
+			result = "{\"flag\":\"" + result + "\"}";
+			writer = response.getWriter();
+			writer.print(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			writer.flush();
+			writer.close();
+		}
+		
+	}
+	
+	@RequestMapping("/homePage")
+	public ModelAndView homePage() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<Comments> cList = userService.homePageComments();
+		modelAndView.addObject("cList", cList);
+		modelAndView.setViewName("eucms.jsp");
+		
+		return modelAndView;
+	}
+	
 	/**
 	 * 注册，id时间戳
 	 * @author BIN
@@ -58,7 +92,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		boolean flag = userService.selectByTel(users,request);
-		String jsp = flag ? "redirect:eucms.jsp" : "redirect:loginorregist.jsp";
+		String jsp = flag ? "redirect:homePage" : "redirect:loginorregist.jsp";
 		
 		if (flag) {
 			try {

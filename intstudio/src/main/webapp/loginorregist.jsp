@@ -67,13 +67,28 @@
 		   } 
 		 };
 	 }
+	 
+	 function judge() {
+		 var result = document.getElementById("flag").value;
+		 if (result == '0') {
+			 alert("注册失败请关闭浏览器重新访问注册！");
+		 } else if (result == '1') {
+			 alert("注册成功请登录！");
+		 } else if (result == '2') {
+			 alert("请登录！");
+		 }
+	 }
 	</script>
 </head>
 <!-- //Head -->
 
 <!-- Body -->
-<body>
+<body onload="judge()">
 
+<%
+String flag = request.getParameter("flag");
+%>
+<input type="hidden" id="flag" value="<%=flag%>">
 	<h1>登录/注册</h1>
 
 	<div class="container w3layouts agileits">

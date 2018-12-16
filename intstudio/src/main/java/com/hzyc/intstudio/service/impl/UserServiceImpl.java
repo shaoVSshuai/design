@@ -3,6 +3,7 @@ package com.hzyc.intstudio.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.hzyc.intstudio.dao.CommentsMapper;
 import com.hzyc.intstudio.dao.UsersMapper;
+import com.hzyc.intstudio.entity.Comments;
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
 
@@ -19,6 +22,34 @@ public class UserServiceImpl implements IUserService {
 
 	@Resource
 	private UsersMapper userMapper;
+	@Resource
+	private CommentsMapper commentsMapper;
+	
+	public List<Comments> homePageComments() {
+		List<Comments> cList = commentsMapper.selectAll();
+		
+		return cList;
+	}
+	
+	public boolean saveComments(String content,HttpServletRequest request) {
+		boolean flag = false;
+		String id = System.currentTimeMillis() + "";
+		Users users = (Users)request.getSession().getAttribute("users");
+		String times = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+		Comments comments = new Comments();
+		comments.setId(id);
+		comments.setUserid(users.getId());
+		comments.setTimes(times);
+		comments.setReplay("1");
+		comments.setDeleted("0");
+		comments.setContent(content);
+		int result = commentsMapper.insertSelective(comments);
+		if (result > 0) {
+			flag = true;
+		}
+		
+		return flag;
+	}
 
 	/**
 	 * 注册，id时间戳

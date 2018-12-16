@@ -1,3 +1,5 @@
+<%@page import="com.hzyc.intstudio.entity.Comments"%>
+<%@page import="java.util.List"%>
 <%@page import="com.hzyc.intstudio.entity.Users"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -152,16 +154,20 @@ display:none;
 		var content = document.getElementById("pinglun").value;
 		
 		if(isLogin == '1'){
-			//弹出评论页面
-			document.getElementById("pinglun").style.display = "inline-block";
-			btn.innerHTML = "提交";
+			
 		}else{
 			//请先登录
 			alert("请先登录");
 			window.location.href = "loginorregist.jsp";
 		}
-		
-		
+		if(btn.innerHTML.trim() == '评论'){
+			//弹出评论页面
+			document.getElementById("pinglun").style.display = "inline-block";
+
+			btn.innerHTML = "提交";
+			return ;
+		}
+
 		var username = document.getElementById("username").value;
 		if(btn.innerText == '提交'){
 			
@@ -177,21 +183,41 @@ display:none;
 			var h = d.getHours(); 
 			var m = d.getMinutes(); 
 			var se = d.getSeconds(); 
-			var s=vYear+(vMon<10 ? "0" + vMon : vMon)+(vDay<10 ? "0"+ vDay : vDay)+(h<10 ? "0"+ h : h)+(m<10 ? "0" + m : m)+(se<10 ? "0" +se : se);
-			//alert('3‘+s);
-			
-		var newLi = '<li class="list-group-item news-li clearfix" style=""> '+
-            '<span style="display:block;width:100%;margin-bottom:10px;">' + s + ' </span>'+
-            '<span> 用户 '+username+' : </span>'+
-            
-             '<a href="#xinwendongtai/38.html" title="" target="_self"> '+
-             	content+
-              '</a> '+
-              '</li>';
-			//ajax录入评论
-			$(newLi).insertAfter($("#pingluntop"));
-			document.getElementById("pinglun").value = '';
-			return ;
+			var s=vYear+"-"+(vMon<10 ? "0" + vMon : vMon)+"-"+(vDay<10 ? "0"+ vDay : vDay)+" "+(h<10 ? "0"+ h : h)+":"+(m<10 ? "0" + m : m)+":"+(se<10 ? "0" +se : se);
+	
+			//ajax去增加评论
+			var xhr = new XMLHttpRequest();
+		    xhr.open("POST", "/saveComments", true);
+		    // 添加http头，发送信息至服务器时内容编码类型
+		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  
+		    xhr.onreadystatechange = function() {
+		      if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+		        var str =  xhr.responseText;
+		        var obj = eval('(' + str + ')'); 
+			     if(obj.flag == '1'){
+			    	 
+			    	 alert("评论成功...");
+			    	 var newLi = '<li class="list-group-item news-li clearfix" style=""> '+
+			            '<span style="display:block;width:100%;margin-bottom:10px;">' + s + ' </span>'+
+			            '<span> 用户 '+username+' : </span>'+
+			            
+			             '<a href="#xinwendongtai/38.html" title="" target="_self"> '+
+			             	content+
+			              '</a> '+
+			              '</li>';
+						//ajax录入评论
+						$(newLi).insertAfter($("#pingluntop"));
+						document.getElementById("pinglun").value = '';
+						return ;
+			     }else{
+			    	 alert("评论失败...");
+			    	 
+			     }
+			     
+			    
+		      }
+		    };
+		    xhr.send("content="+content.trim());
 		}
 		
 	}
@@ -222,6 +248,13 @@ display:none;
 		w.style.display = "none";
 	}
 
+	function judgeLogOut() {
+		if (window.confirm("确定注销吗？")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 </script>
   </head>
   <body>
@@ -259,7 +292,7 @@ display:none;
         <%
         	if (users != null ) {
         %>		
-        <a href="/logOut" title="用户名" class="nav-link active"><%=users.getUsername()%>/注销</a>
+        <a href="/logOut" title="用户名" class="nav-link active" onclick="return judgeLogOut()"><%=users.getUsername()%>/注销</a>
         <input type="hidden" value="<%=users.getUsername() %>" id="username"/>
         <input type="hidden" value="1" id="isLogin"/>
         <%
@@ -412,28 +445,39 @@ display:none;
                 </a> </li>
                 
                 		
-                
-                        <li class="list-group-item news-li clearfix" style=""> 
+                	<%
+                		List<Comments> cList = (List<Comments>)request.getAttribute("cList");
+                		if(cList != null && cList.size() > 0 ){
+                		for(Comments com : cList){
+                	%>
+                	
+                	
+                		  <li class="list-group-item news-li clearfix" style=""> 
                         <span style="display:block;width:100%;margin-bottom:10px;">2018-05-29 10:30:21 </span>
-                        <span> 用户 WhoElse : </span>
+                        <span> 用户 <%=com.getUsername() %> : </span>
                         
                          <a href="#xinwendongtai/38.html" title="" target="_self"> 
-                         	非常感谢，一直想做一个网站卖自己的产品，终于实现了，推广的很快，技术人员很棒!
+                         	<%=com.getContent() %>
                           </a> 
-                          
-                          
-                          
                           </li>
-                          
+                          <%
+                          	if(com.getReplay().equals("0")){
+                          		//已经回复了
+                          	
+                          %>
                           <li class="list-group-item news-li clearfix" style="padding-left:30px;">
                           	<span>INT Studio 回复 :</span>
                           	<a href="#xinwendongtai/38.html" title="" target="_self"> 
-								谢谢您 ，您开心就好！！！
+								<%=com.getReplycomments() %>
                           </a>
                           </li>
-                        <li class="list-group-item news-li clearfix"> <span>2018-05-18</span> <a href="#xinwendongtai/21.html" title="网站设计与SEO的关系，高手是从这4个维度分析的！" target="_self"> 网站设计与SEO的关系，高手是从这4个维度分析的！ </a> </li>
-                        <li class="list-group-item news-li clearfix"> <span>2018-05-18</span> <a href="#xinwendongtai/20.html" title="CMS是如何应运而生的？" target="_self"> CMS是如何应运而生的？ </a> </li>
-                        <li class="list-group-item news-li clearfix"> <span>2018-05-17</span> <a href="#xinwendongtai/4.html" title="seo是什么？" target="_self"> seo是什么？ </a> </li>
+                		<%
+                          	}
+                		%>
+                	<%
+                		}
+                		}
+                	%>
                       </ul>
           </div>
          
