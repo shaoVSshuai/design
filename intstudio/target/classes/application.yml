@@ -7,7 +7,7 @@ spring:
   enabled: false
  datasource:
   driverClassName: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://39.96.62.60:3306/intstudio?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+  url: jdbc:mysql://39.96.62.60:3306/intstudio?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
   username: root
   password: mysql
   type: com.alibaba.druid.pool.DruidDataSource

@@ -45,10 +45,13 @@ public class UserController {
 			writer = response.getWriter();
 			writer.print(result);
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		} finally {
+			if(writer != null) {
 			writer.flush();
 			writer.close();
+			}
 		}
 		
 	}
