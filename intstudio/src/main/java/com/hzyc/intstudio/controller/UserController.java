@@ -2,6 +2,9 @@ package com.hzyc.intstudio.controller;
 
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,13 +14,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hzyc.intstudio.entity.Comments;
 import com.hzyc.intstudio.entity.Users;
 import com.hzyc.intstudio.service.IUserService;
+import com.hzyc.intstudio.util.JDBCTools;
 
 @Controller
+//@RequestMapping("/weishangcheng")
 public class UserController {
 
 	@Resource
@@ -31,28 +37,52 @@ public class UserController {
 		res.setData(rows);
 		return res;
 	}*/
-	@RequestMapping("/saveComments")
-	public void saveComments(HttpServletResponse response,HttpServletRequest request) {
-		PrintWriter writer = null;
-		try {
-			String content = request.getParameter("content");
-			boolean flag = userService.saveComments(content,request);
-			String result = "0";
-			if (flag) {
-				result = "1";
-			}
-			result = "{\"flag\":\"" + result + "\"}";
-			writer = response.getWriter();
-			writer.print(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		} finally {
-			if(writer != null) {
-			writer.flush();
-			writer.close();
-			}
+	@RequestMapping("/selectGoods")
+	@ResponseBody
+	public List<HashMap<String,String>> saveComments(String type , HttpServletResponse response,HttpServletRequest request) {
+		String typeString = "";
+		if(type.equals("1")) {
+			typeString = "车";
+		} if(type.equals("2")) {
+			
 		}
+		if(type.equals("3")) {
+			
+		}
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find("select * from goods where type='"+typeString+"'");
+		return list;
+		
+	}
+	
+	@RequestMapping("/getGoodsInfo")
+	@ResponseBody
+	public List<HashMap<String,String>> getGoodsInfo(String id , HttpServletResponse response,HttpServletRequest request) {
+		 
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find("select * from goods where id='"+id+"'");
+		return list;
+		
+	}
+	@RequestMapping("/addShopCar")
+	@ResponseBody
+	public String addShopCar(String goodid,String userid , HttpServletResponse response,HttpServletRequest request) {
+		 
+		JDBCTools jt = new JDBCTools();
+		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+		String sql = "insert into shopcar(userid,goodid,time,nums) values('"+userid+"','"+goodid+"','"+date+"','1')";
+		int i = jt.update(sql);
+		return i > 0 ?"true":"false";
+		
+	}
+	@RequestMapping("/selshopcar")
+	@ResponseBody
+	public List<HashMap<String,String>>  selshopcar(String userid , HttpServletResponse response,HttpServletRequest request) {
+		 
+		JDBCTools jt = new JDBCTools();
+		String sql = "select g.*,s.nums snums,s.time from goods g,shopcar s where g.id = s.goodid and s.userid = '"+userid+"'";
+		List<HashMap<String,String>> list = jt.find(sql);
+		return list;
 		
 	}
 	
