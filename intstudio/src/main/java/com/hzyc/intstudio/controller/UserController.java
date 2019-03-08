@@ -37,6 +37,17 @@ public class UserController {
 		res.setData(rows);
 		return res;
 	}*/
+	
+	@RequestMapping("/haveCar")
+	@ResponseBody
+	public List<HashMap<String,String>> haveCar(String name , HttpServletResponse response,HttpServletRequest request) {
+		
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find("select * from mycar where userid='"+name+"'");
+		return list;
+		
+	}
+	
 	@RequestMapping("/selectGoods")
 	@ResponseBody
 	public List<HashMap<String,String>> saveComments(String type , HttpServletResponse response,HttpServletRequest request) {

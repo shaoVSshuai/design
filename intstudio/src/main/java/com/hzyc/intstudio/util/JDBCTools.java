@@ -55,6 +55,7 @@ public class JDBCTools {
 	}
 	
 	public ArrayList<HashMap<String, String>> find(String sql) {
+		System.out.println(sql);
 		ArrayList<HashMap<String, String>> rsList = new ArrayList<HashMap<String, String>>();
 		try {
 			connect();
