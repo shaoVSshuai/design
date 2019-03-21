@@ -3,9 +3,11 @@ package com.hzyc.intstudio.controller;
 
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +31,426 @@ public class UserController {
 	@Resource
 	private IUserService userService;
 	
-	/*@RequestMapping("/add")
+	
+	
+	@RequestMapping("/selMyOrder")
 	@ResponseBody
-	public Result<Integer> adduser(UserPo u){
-		Result<Integer> res = new Result<Integer>();
-		int rows = userService.add(u);
-		res.setData(rows);
-		return res;
-	}*/
+	public ArrayList<HashMap<String,String>> selMyOrder(String userid  
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("select * from `order` where userid='"+userid+"' order by time desc");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+					
+			
+	}
+	
+	
+	@RequestMapping("/addOrder")
+	@ResponseBody
+	public boolean addOrder(String userid , String price ,String goodid , String isShop
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			String orderid = UUID.randomUUID().toString();
+			ArrayList<String> list = new ArrayList<String>();
+			//逻辑   下单   添加订单详情   删除购物车
+			String sql = "INSERT INTO `ORDER`(userid , price , tprice , TIME , state , orderid)  VALUES('"+userid+"','"+price+"','"+price+"',NOW(),'已付款','"+orderid+"')";
+			if(goodid.indexOf(",") != -1) {
+				String[] array = goodid.split(",");
+				for(String id : array) {
+					String sql2  = "INSERT INTO order_detail(orderid ,goodid , nums , price) VALUES('"+orderid+"','"+id+"','1','"+price+"')";
+					list.add(sql2);
+				}
+			}else {
+				String sql2  = "INSERT INTO order_detail(orderid ,goodid , nums , price) VALUES('"+orderid+"','"+goodid+"','1','"+price+"')";
+				list.add(sql2);
+			}
+			
+			if(isShop != null && isShop.equals("1")) {
+				//购物车购买   需要删除购物车
+			}
+			
+			list.add(sql);
+			
+			jt.batch(list);
+					
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	
+	
+	@RequestMapping("/selUserById")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selUserById(String userid
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("select * from users where userid='"+userid+"' ");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+	
+	@RequestMapping("/giveGift")
+	@ResponseBody
+	public boolean giveGift(String userid, String tel , String name , String cw , String gift , 
+			String grade , String time
+			) {
+		JDBCTools jt = new JDBCTools();
+		String iSql = "insert into give_gift(userid  , gift ,grade , time) "
+				+ "values('"+userid+"','"+gift+"','"+grade+"',NOW())";
+				
+				
+				// "insert into give_gift(userid , tel , name , cw , gift ,grade , time) "
+				//+ "values('"+userid+"','"+tel+"','"+name+ "','"+cw+ "','"+ gift +"','"+ grade+ "','" +time  +  "')";
+		String updateUserSql = "update users set grade = grade-"+ grade +" where userid='"+userid+"'" ;
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(iSql);
+		list.add(updateUserSql);
+		try {
+			jt.batch(list);
+					
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	
+	@RequestMapping("/selGradeGiftByUserId")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selGradeGiftByUserId(String userid
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("SELECT gift.id gift , gift.name , g.grade  FROM "
+					+ "give_gift g,gift gift WHERE g.gift = gift.id "
+					+ "AND userid = '"+userid+"'" + 
+					"	 ");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}	
+	
+	
+	@RequestMapping("/selZhihuanByUserId")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selZhihuanByUserId(String userid
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("select * from zhihuan where userid = '"+userid+"'" + 
+					"	 ");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}		
+			
+	@RequestMapping("/selGradeGift")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selGradeGift(
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("SELECT g.*,gift.name FROM grade_gift g,gift gift WHERE g.gift = gift.id ");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+	
+	
+	@RequestMapping("/selWeibaoByuserid")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selWeibaoByuserid(String userid
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("SELECT * FROM bespoke WHERE userid = '"+userid+"'");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+	@RequestMapping("/selShijiaByuserid")
+	@ResponseBody
+	public ArrayList<HashMap<String,String>> selShijiaByuserid(String userid
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("SELECT * FROM testdrive WHERE userid = '"+userid+"'");
+					
+			return list;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+	
+	
+
+	@RequestMapping("/addUser")
+	@ResponseBody
+	public boolean addUser(String userid , String id
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list = jt.find("select * from users where userid = '"+userid+"'");
+			if(list != null && list.size() > 0 ) {
+				
+			}else {
+				int row =jt.update("insert into users(userid , grade)  values ('"+userid+"','2000')");
+				
+			}			
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	@RequestMapping("/delete")
+	@ResponseBody
+	public boolean delete(String table , String id
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			int row =jt.update("delete from "+table+" where id= '"+id+"'");
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}		
+	
+	@RequestMapping("/addRole")
+	@ResponseBody
+	public boolean addRole(String type , String remark ,String price 
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			int row =jt.update("insert into grade_gift(grade,gift,userid,times,flag) values('"+price+"','"+type+"','admin','"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"','1')");
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}		
+	
+	
+	@RequestMapping("/addGift")
+	@ResponseBody
+	public boolean addGift(String type , String remark ,String price ,String name
+			) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			int row =jt.update("insert into gift(type,reamrk,price,name) values('"+type+"','"+remark+"','"+price+"','"+name+"')");
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}		
+			
+    @RequestMapping("/addType")
+	@ResponseBody
+	public boolean addType(String pinpai ,String type , String remark , String price) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			int row =jt.update("insert into cartype(NAME,reamrk,pid,price) values('"+type+"','"+remark+"','"+pinpai+"','"+price+"')");
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	@RequestMapping("/addPinpai")
+	@ResponseBody
+	public boolean addPinpai(String pinpai , String remark) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			int row =jt.update("insert into cartype(NAME,reamrk,pid) values('"+pinpai+"','"+remark+"','0')");
+			if(row > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public boolean login(String username , String pwd) {
+		JDBCTools jt = new JDBCTools();
+		try {
+			ArrayList<HashMap<String,String>> list =jt.find("select * from admin where username = '"+username+"' and pwd = '"+pwd+"'");
+			if(list != null && list.size() > 0) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+	}
+	
+	
+	@RequestMapping("/insertTestDrive")
+	@ResponseBody
+	public boolean insertTestDrive(String xslc, String userid , String cartype, String carcode , String name , String tel , String cw , String time , HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		int row = jt.update("INSERT INTO testdrive(xslc  , userid  ,cartype,carcode , name,tel,cw,time)"
+				+ " VALUES('"+xslc+"','"+userid+"','"+cartype+"','"+carcode+"','"+name+"','"+tel+"','"+cw+"','"+time+"')");
+		if(row > 0 ) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	@RequestMapping("/insertZhihuan")
+	@ResponseBody
+	public boolean insertZhihuan(String xslc, String userid, String cartype, String carcode , String name , String tel , String cw , String time , HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		int row = jt.update("INSERT INTO zhihuan(xslc  ,userid ,  cartype,carcode , name,tel,cw,time)"
+				+ " VALUES('"+xslc+"','"+userid+"','"+cartype+"','"+carcode+"','"+name+"','"+tel+"','"+cw+"','"+time+"')");
+		if(row > 0 ) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+
+	
+	@RequestMapping("/yuyuebaoyang")
+	@ResponseBody
+	public boolean yuyuebaoyang(String nickname , String name , String tel , String cw , String xslc , String time , String code , String remark ,HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		int row = jt.update("INSERT INTO bespoke(userid,name , phone , `call`,mills , times , carid ,remark)"
+				+ " VALUES('"+nickname+"','"+name+"','"+tel+"','"+cw+"','"+xslc+"','"+time+"','"+code+"','"+remark+"')");
+		if(row > 0 ) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	@RequestMapping("/addCar")
+	@ResponseBody
+	public boolean addCar(String cartype , String date , String xslc , String sbdm , String carcode , String fdjh , String nickname , HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		int row = jt.update("INSERT INTO mycar(xslc,userid , carid , TYPE,CODE , fadongji , TIME ,imgurl)"
+				+ " VALUES('"+xslc+"','"+nickname+"','"+carcode+"','"+cartype+"','"+sbdm+"','"+fdjh+"','"+date+"','"+""+"')");
+		if(row > 0 ) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	@RequestMapping("/selectAllCartype")
+	@ResponseBody
+	public HashMap selectAllCartype(String id , HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find("select * from cartype");
+		List<HashMap<String,String>> old = jt.find("select * from cartype where pid = '0'");
+		//for(HashMap<String,String> map : list) {
+			//newlist.add(map.get("name"));
+	//	}
+		HashMap amap = new HashMap();
+		amap.put("all" , list);
+		List<String> newlist = new ArrayList();
+		for(HashMap<String,String> map : old) {
+			newlist.add(map.get("name"));
+		}
+		amap.put("one" , newlist);
+		return amap;
+		
+	}
+	
+	
+	@RequestMapping("/selectOneNews")
+	@ResponseBody
+	public HashMap<String,String> selOneNews(String id , HttpServletResponse response,HttpServletRequest request) {
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find("select * from news where id='"+id+"'");
+		if(list != null && list.size() > 0) {
+		return list.get(0);	
+		}else {
+			return null;
+		}
+		
+	}
+	
+	@RequestMapping("/selectNews")
+	@ResponseBody
+	public List<HashMap<String,String>> selNews(String limit ,String type , HttpServletResponse response,HttpServletRequest request) {
+		String name = "";
+		if(type.equals("1")) {
+			name = "新闻";
+			
+		}else {
+			name = "爱车";
+		}
+		String sql = "select * from news where type='"+name+"'";
+		if(limit != null && !limit.equals("")) {
+			sql += " limit "+limit + "";
+		}
+		JDBCTools jt = new JDBCTools();
+		List<HashMap<String,String>> list = jt.find(sql);
+		return list;
+		
+	}
 	
 	@RequestMapping("/haveCar")
 	@ResponseBody

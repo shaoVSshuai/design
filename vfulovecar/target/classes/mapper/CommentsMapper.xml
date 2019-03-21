@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzyc.intstudio.dao.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.hzyc.intstudio.entity.Comments" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="replay" property="replay" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="dealwithtimes" property="dealwithtimes" jdbcType="VARCHAR" />
+    <result column="replycomments" property="replycomments" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapAll" type="com.hzyc.intstudio.entity.Comments" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="replay" property="replay" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="dealwithtimes" property="dealwithtimes" jdbcType="VARCHAR" />
+    <result column="replycomments" property="replycomments" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, content, times, replay, deleted, dealwithtimes, replycomments
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from comments
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hzyc.intstudio.entity.Comments" >
+    insert into comments (id, userid, content, 
+      times, replay, deleted, 
+      dealwithtimes, replycomments)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{times,jdbcType=VARCHAR}, #{replay,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{dealwithtimes,jdbcType=VARCHAR}, #{replycomments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzyc.intstudio.entity.Comments" >
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="replay != null" >
+        replay,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="dealwithtimes != null" >
+        dealwithtimes,
+      </if>
+      <if test="replycomments != null" >
+        replycomments,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="replay != null" >
+        #{replay,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwithtimes != null" >
+        #{dealwithtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="replycomments != null" >
+        #{replycomments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzyc.intstudio.entity.Comments" >
+    update comments
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="replay != null" >
+        replay = #{replay,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwithtimes != null" >
+        dealwithtimes = #{dealwithtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="replycomments != null" >
+        replycomments = #{replycomments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzyc.intstudio.entity.Comments" >
+    update comments
+    set userid = #{userid,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      times = #{times,jdbcType=VARCHAR},
+      replay = #{replay,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      dealwithtimes = #{dealwithtimes,jdbcType=VARCHAR},
+      replycomments = #{replycomments,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMapAll">
+  	select c.*,u.username from comments c,users u where c.userid = u.id order by c.times desc
+  </select>
+</mapper>

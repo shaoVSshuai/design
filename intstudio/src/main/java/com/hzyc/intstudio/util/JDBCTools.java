@@ -43,6 +43,7 @@ public class JDBCTools {
 	}
 	public int update(String sql) {
 		int rows = 0;
+		System.out.println(sql);
 		try {
 			connect();
 			rows = stmt.executeUpdate(sql);
@@ -77,6 +78,7 @@ public class JDBCTools {
 	}
 	
 	public void batch(ArrayList<String> sqls) {
+		System.out.println(sqls);
 		try {
 			connect();
 			for (int i = 0; i < sqls.size(); i++) {

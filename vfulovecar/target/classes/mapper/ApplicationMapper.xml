@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzyc.intstudio.dao.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.hzyc.intstudio.entity.Application" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="usersid" property="usersid" jdbcType="VARCHAR" />
+    <result column="demandname" property="demandname" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="VARCHAR" />
+    <result column="dealwith" property="dealwith" jdbcType="VARCHAR" />
+    <result column="deteled" property="deteled" jdbcType="VARCHAR" />
+    <result column="dealwithtimes" property="dealwithtimes" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, usersid, demandname, detail, times, dealwith, deteled, dealwithtimes, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from application
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from application
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hzyc.intstudio.entity.Application" >
+    insert into application (id, usersid, demandname, 
+      detail, times, dealwith, 
+      deteled, dealwithtimes, type
+      )
+    values (#{id,jdbcType=VARCHAR}, #{usersid,jdbcType=VARCHAR}, #{demandname,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}, #{dealwith,jdbcType=VARCHAR}, 
+      #{deteled,jdbcType=VARCHAR}, #{dealwithtimes,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzyc.intstudio.entity.Application" >
+    insert into application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="usersid != null" >
+        usersid,
+      </if>
+      <if test="demandname != null" >
+        demandname,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="dealwith != null" >
+        dealwith,
+      </if>
+      <if test="deteled != null" >
+        deteled,
+      </if>
+      <if test="dealwithtimes != null" >
+        dealwithtimes,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="usersid != null" >
+        #{usersid,jdbcType=VARCHAR},
+      </if>
+      <if test="demandname != null" >
+        #{demandname,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwith != null" >
+        #{dealwith,jdbcType=VARCHAR},
+      </if>
+      <if test="deteled != null" >
+        #{deteled,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwithtimes != null" >
+        #{dealwithtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzyc.intstudio.entity.Application" >
+    update application
+    <set >
+      <if test="usersid != null" >
+        usersid = #{usersid,jdbcType=VARCHAR},
+      </if>
+      <if test="demandname != null" >
+        demandname = #{demandname,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwith != null" >
+        dealwith = #{dealwith,jdbcType=VARCHAR},
+      </if>
+      <if test="deteled != null" >
+        deteled = #{deteled,jdbcType=VARCHAR},
+      </if>
+      <if test="dealwithtimes != null" >
+        dealwithtimes = #{dealwithtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzyc.intstudio.entity.Application" >
+    update application
+    set usersid = #{usersid,jdbcType=VARCHAR},
+      demandname = #{demandname,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      times = #{times,jdbcType=VARCHAR},
+      dealwith = #{dealwith,jdbcType=VARCHAR},
+      deteled = #{deteled,jdbcType=VARCHAR},
+      dealwithtimes = #{dealwithtimes,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
